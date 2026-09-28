@@ -412,7 +412,10 @@ listVisitors <- function(summary=FALSE, ipCounter=FALSE){
         if(ipCounter){
             query <- paste0('SELECT count(`ip`) AS total, ',
                             ' count(DISTINCT `ip`) AS uniqueIP FROM ',
-                            .globals$counterTableName)
+                            .globals$counterTableName,
+                            ' WHERE LOWER(`agent`) NOT LIKE "%bytespider%"',
+                            ' AND LOWER(`agent`) NOT LIKE "%ahrefsBot%"',
+                            ' AND LOWER(`agent`) NOT LIKE "%semrushBot%"')
         }else{
             query <- paste0('SELECT * FROM ',
                             .globals$counterTableName)
